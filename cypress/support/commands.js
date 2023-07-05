@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+
+Cypress.Commands.add('detectLanguage', { prevSubject: false }, (text) => {
+    const franc = require('franc-min');
+
+    const detectedLanguage = franc.franc(text)
+
+    return detectedLanguage;
+});
