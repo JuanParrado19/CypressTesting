@@ -1,7 +1,7 @@
 describe('NOIRLab Internal NewsLetter',()=>{
 
     beforeEach(function (){
-        cy.visit('https://us4.campaign-archive.com/?e=__test_email__&u=5faf5cfc1d62a8a307b4370d9&id=d3894ae2df')
+        cy.visit('https://noirlab.edu/public/newsletters/noirlab-news/html/202/')
     })
 
     it('Given_images_When_pageIsLoading_Then_all_visible',function (){

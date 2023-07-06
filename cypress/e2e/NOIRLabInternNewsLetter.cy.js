@@ -1,7 +1,7 @@
 describe('NOIRLab Internal NewsLetter',()=>{
 
     beforeEach(function (){
-        cy.visit('https://us4.campaign-archive.com/?e=__test_email__&u=5faf5cfc1d62a8a307b4370d9&id=d3894ae2df')
+        cy.visit('https://us4.campaign-archive.com/?u=5faf5cfc1d62a8a307b4370d9&id=cd67ec8214')
     })
 
     it('Given_images_When_pageIsLoading_Then_all_visible',function (){
@@ -91,7 +91,7 @@ describe('NOIRLab Internal NewsLetter',()=>{
 
     })
 
-    it.only('Given_text_When_invoke_page_Then_expect_language', function () {
+    it('Given_text_When_invoke_page_Then_expect_language', function () {
         cy.get('.mcnTextContentContainer').each(($p)=>{
             const text = $p.text()
             cy.log(text)
