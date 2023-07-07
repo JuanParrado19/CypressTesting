@@ -105,9 +105,9 @@ describe('NOIRLab Internal NewsLetter',()=>{
 
     it('Given_content_When_invoke_page_Then_page_is_visible',function(){
 
-        cy.get('.sidebarContent').should('be.visible')
-        cy.get('.footerContent').should('be.visible')
-        cy.get('.mcnTextContentContainer').should('be.visible')
+        cy.get('.sidebarContent').should('be.visible').and('exist')
+        cy.get('.footerContent').should('be.visible').and('exist')
+        cy.get('.mcnTextContentContainer').should('be.visible').and('exist')
 
     })
 

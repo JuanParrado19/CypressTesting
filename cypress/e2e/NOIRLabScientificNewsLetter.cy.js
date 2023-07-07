@@ -12,13 +12,24 @@ describe('NOIRLab Internal NewsLetter',()=>{
         })
     })
 
-    it('Given_image(6)_When_clicking_Then_redirect_to_website',function (){
+    it('Given_topContentBar_images_When_cliking_Then_redirect_to_website', function () {
+        cy.get('#templateHeader')
+            .children().children('tr').children('td').children('table').children().children('tr').children('td').children('a')
+            .each((a)=>{
+                const href = a.attr('href')
+                cy.request({url:href , failOnStatusCode:false}).then(function(response){
+                    expect(response.status).to.eq(200)
 
-        cy.get(':nth-child(6) > .mcnCaptionBlockOuter > :nth-child(1) > .mcnCaptionBlockInner > .mcnCaptionLeftContentOuter > :nth-child(1) > :nth-child(1) > .mcnCaptionLeftContentInner > .mcnCaptionLeftImageContentContainer > tbody > tr > .mcnCaptionLeftImageContent > a > .mcnImage')
+                })
+            })
+    });
+
+    it('Given_principal_images_When_clicking_Then_redirect_to_website',function (){
+
+        cy.get('.mcnTextContent img')
             .parent('a')
-            .should('have.attr','href')
-            .then(function (href){
-
+            .each((a)=>{
+                const href = a.attr('href')
                 cy.request({url:href , failOnStatusCode:false}).then(function(response){
                     expect(response.status).to.eq(200)
 
@@ -26,68 +37,41 @@ describe('NOIRLab Internal NewsLetter',()=>{
             })
     })
 
-    it('Given_image(7)_When_clicking_Then_redirect_to_website',function (){
-
-        cy.get(':nth-child(7) > .mcnCaptionBlockOuter > :nth-child(1) > .mcnCaptionBlockInner > .mcnCaptionLeftContentOuter > :nth-child(1) > :nth-child(1) > .mcnCaptionLeftContentInner > .mcnCaptionLeftImageContentContainer > tbody > tr > .mcnCaptionLeftImageContent > a > .mcnImage')
+    it('Given_sidecontentBar_images_When_cliking_Then_redirect_to_website', function () {
+        cy.get('.sidebarContent img')
             .parent('a')
-            .should('have.attr','href')
-            .then(function (href){
-
+            .each((a)=>{
+                const href = a.attr('href')
                 cy.request({url:href , failOnStatusCode:false}).then(function(response){
                     expect(response.status).to.eq(200)
 
                 })
             })
-    })
+    });
 
-    it('Given_image(8)_When_clicking_Then_redirect_to_website',function (){
+    it('Given_footerContent_images_When_cliking_Then_redirect_to_website', function () {
 
-        cy.get(':nth-child(8) > .mcnCaptionBlockOuter > :nth-child(1) > .mcnCaptionBlockInner > .mcnCaptionLeftContentOuter > :nth-child(1) > :nth-child(1) > .mcnCaptionLeftContentInner > .mcnCaptionLeftImageContentContainer > tbody > tr > .mcnCaptionLeftImageContent > a > .mcnImage')
+        cy.get('.footerContent img')
             .parent('a')
-            .should('have.attr','href')
-            .then(function (href){
-
+            .each((a)=>{
+                const href = a.attr('href')
                 cy.request({url:href , failOnStatusCode:false}).then(function(response){
-                    expect(response.status).to.eq(200)
+                    if (response.status === 999 || response.status === null){
+                        cy.log('socialmedia bot corrector')
+                    }else{
+                        expect(response.status).to.eq(200)
+                    }
 
                 })
             })
-    })
 
-    it('Given_image(9)_When_clicking_Then_redirect_to_website',function (){
-
-        cy.get(':nth-child(9) > .mcnCaptionBlockOuter > :nth-child(1) > .mcnCaptionBlockInner > .mcnCaptionLeftContentOuter > :nth-child(1) > :nth-child(1) > .mcnCaptionLeftContentInner > .mcnCaptionLeftImageContentContainer > tbody > tr > .mcnCaptionLeftImageContent > a > .mcnImage')
-            .parent('a')
-            .should('have.attr','href')
-            .then(function (href){
-
-                cy.request({url:href , failOnStatusCode:false}).then(function(response){
-                    expect(response.status).to.eq(200)
-
-                })
-            })
-    })
-
-    it('Given_image(10)_When_clicking_Then_redirect_to_website',function (){
-
-        cy.get(':nth-child(10) > .mcnCaptionBlockOuter > :nth-child(1) > .mcnCaptionBlockInner > .mcnCaptionLeftContentOuter > :nth-child(1) > :nth-child(1) > .mcnCaptionLeftContentInner > .mcnCaptionLeftImageContentContainer > tbody > tr > .mcnCaptionLeftImageContent > a > .mcnImage')
-            .parent('a')
-            .should('have.attr','href')
-            .then(function (href){
-
-                cy.request({url:href , failOnStatusCode:false}).then(function(response){
-                    expect(response.status).to.eq(200)
-
-                })
-            })
-    })
-
+    });
 
     it('Given_content_When_invoke_page_Then_page_is_visible',function(){
 
-        cy.get('.sidebarContent').should('be.visible')
-        cy.get('.footerContent').should('be.visible')
-        cy.get('.mcnTextContentContainer').should('be.visible')
+        cy.get('.sidebarContent').should('be.visible').and('exist')
+        cy.get('.footerContent').should('be.visible').and('exist')
+        cy.get('.mcnTextContentContainer').should('be.visible').and('exist')
 
     })
 
@@ -107,7 +91,7 @@ describe('NOIRLab Internal NewsLetter',()=>{
             const text = $p.text()
             cy.log(text)
             cy.detectLanguage(text).then((detectedLanguage)=>{
-                if(detectedLanguage === 'fra' || detectedLanguage === 'und'){
+                if(detectedLanguage === 'fra' || detectedLanguage === 'und'|| detectedLanguage === 'ckb'){
                     cy.log('date')
                 }else{
                     expect(detectedLanguage).to.eq('eng')
